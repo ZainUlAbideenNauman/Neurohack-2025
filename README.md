@@ -100,7 +100,7 @@ We have **two challenge tracks** you can choose from:
   - Upload your presentation, code, reports, and any other relevant files to your Github repository.
     - If files are too large, or you don't have a Github repository, you can submit a zip file.
     - Ensure it includes a *README* explaining about (and how to run/use) your project. 
-  - **[Submit through the submission form]()**
+  - **[Submit through the submission form](https://docs.google.com/forms/d/e/1FAIpQLSc65U8UJwx7-sMt4GFWles26xFzohy9mJT58iCGx3GzYFaYJA/viewform?usp=header)**
 - **NOTE:** If you submit multiple times, only your most recent submission made before the submission deadline (1:00 pm on Sunday) will be considered. Submissions received after the deadline will not be accepted.  
 
 ---
