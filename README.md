@@ -108,8 +108,8 @@ We have **two challenge tracks** you can choose from:
 # 📌 Getting Started
 ### **1️⃣ Clone this Repository**
 ```bash
-git clone https://github.com/YOUR-ORG/NeuroHackathon-2025.git
-cd NeuroHackathon-2025
+git clone https://github.com/SURGE-NeuroTech-Club/Neurohack-2025.git
+cd Neurohack-2025
 ```
 
 ### **2️⃣ Install Dependencies**
