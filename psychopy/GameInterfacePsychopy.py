@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2024.2.4),
-    on March 16, 2025, at 11:22
+    on March 16, 2025, at 13:05
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -15,7 +15,6 @@ If you publish work using this script the most relevant publication is:
 from psychopy import locale_setup
 from psychopy import prefs
 from psychopy import plugins
-from Attenti-meter.ipynb
 plugins.activatePlugins()
 prefs.hardware['audioLib'] = 'ptb'
 prefs.hardware['audioLatencyMode'] = '3'
@@ -33,7 +32,28 @@ import sys  # to get file system encoding
 
 from psychopy.hardware import keyboard
 
+#########################
+board_id = BoardIds.CYTON_BOARD.value # Set the board_id to match the Cyton board
+
+ # Lets quickly take a look at the specifications of the Cyton board
+for item1, item2 in BoardShim.get_board_descr(board_id).items():
+    print(f"{item1}: {item2}")
+ ##########################
+cyton_board = BrainFlowBoardSetup(
+                                board_id = board_id,
+                                name = 'Board_1', # Optional name for the board. This is useful if you have multiple boards connected and want to distinguish between them.
+                                serial_port = None # If the serial port is not specified, it will try to auto-detect the board. If this fails, you will have to assign the correct serial port. See https://docs.openbci.com/GettingStarted/Boards/CytonGS/ 
+                                ) 
+
+cyton_board.setup() # This will establish a connection to the board and start streaming data.
+
+# DM01HOSQA
+################################
+
 # --- Setup global variables (available in all functions) ---
+##########################
+baseline = 0
+##########################
 # create a device manager to handle hardware (keyboards, mice, mirophones, speakers, etc.)
 deviceManager = hardware.DeviceManager()
 # ensure that relative paths start from the same directory as this script
@@ -270,6 +290,12 @@ def setupDevices(expInfo, thisExp, win):
             deviceClass='keyboard',
             deviceName='key_resp_3',
         )
+    if deviceManager.getDevice('key_resp_14') is None:
+        # initialise key_resp_14
+        key_resp_14 = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='key_resp_14',
+        )
     if deviceManager.getDevice('key_resp_5') is None:
         # initialise key_resp_5
         key_resp_5 = deviceManager.addDevice(
@@ -288,6 +314,12 @@ def setupDevices(expInfo, thisExp, win):
             deviceClass='keyboard',
             deviceName='key_resp_12',
         )
+    if deviceManager.getDevice('key_resp_15') is None:
+        # initialise key_resp_15
+        key_resp_15 = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='key_resp_15',
+        )
     if deviceManager.getDevice('key_resp_7') is None:
         # initialise key_resp_7
         key_resp_7 = deviceManager.addDevice(
@@ -299,6 +331,12 @@ def setupDevices(expInfo, thisExp, win):
         key_resp_13 = deviceManager.addDevice(
             deviceClass='keyboard',
             deviceName='key_resp_13',
+        )
+    if deviceManager.getDevice('key_resp_16') is None:
+        # initialise key_resp_16
+        key_resp_16 = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='key_resp_16',
         )
     if deviceManager.getDevice('key_resp_8') is None:
         # initialise key_resp_8
@@ -467,12 +505,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     instructionsim = visual.ImageStim(
         win=win,
         name='instructionsim', 
-        image='images/instructions.jpg', mask=None, anchor='center',
+        image='images/newinstructions.png', mask=None, anchor='center',
         ori=0.0, pos=(0, 0), draggable=False, size=(2, 1),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
         texRes=128.0, interpolate=True, depth=0.0)
     key_resp_3 = keyboard.Keyboard(deviceName='key_resp_3')
+    
+    # --- Initialize components for Routine "level1waldo" ---
+    image_5 = visual.ImageStim(
+        win=win,
+        name='image_5', 
+        image='images/WaldoLv1.jpg', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0), draggable=False, size=(2, 1),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=0.0)
+    key_resp_14 = keyboard.Keyboard(deviceName='key_resp_14')
     
     # --- Initialize components for Routine "whatquadrantiswaldo" ---
     whatquadrant = visual.ImageStim(
@@ -507,6 +556,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         texRes=128.0, interpolate=True, depth=0.0)
     key_resp_12 = keyboard.Keyboard(deviceName='key_resp_12')
     
+    # --- Initialize components for Routine "level2waldo" ---
+    image_6 = visual.ImageStim(
+        win=win,
+        name='image_6', 
+        image='images/waldolv2.png', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0), draggable=False, size=(0.5, 0.5),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=0.0)
+    key_resp_15 = keyboard.Keyboard(deviceName='key_resp_15')
+    
     # --- Initialize components for Routine "whatquadrantiswaldo" ---
     whatquadrant = visual.ImageStim(
         win=win,
@@ -539,6 +599,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         flipHoriz=False, flipVert=False,
         texRes=128.0, interpolate=True, depth=0.0)
     key_resp_13 = keyboard.Keyboard(deviceName='key_resp_13')
+    
+    # --- Initialize components for Routine "level3waldo" ---
+    image_7 = visual.ImageStim(
+        win=win,
+        name='image_7', 
+        image='images/waldolv3.jpg', mask=None, anchor='center',
+        ori=0.0, pos=(0, 0), draggable=False, size=(0.5, 0.5),
+        color=[1,1,1], colorSpace='rgb', opacity=None,
+        flipHoriz=False, flipVert=False,
+        texRes=128.0, interpolate=True, depth=0.0)
+    key_resp_16 = keyboard.Keyboard(deviceName='key_resp_16')
     
     # --- Initialize components for Routine "whatquadrantiswaldo" ---
     whatquadrant = visual.ImageStim(
@@ -912,6 +983,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     if key_resp_2.keys != None:  # we had a response
         thisExp.addData('key_resp_2.rt', key_resp_2.rt)
         thisExp.addData('key_resp_2.duration', key_resp_2.duration)
+        
+    ##################################
+    base_sums, base_average = process_eeg_beta(period_time=3, total_time=60, cyton_board=cyton_board)
+
+    base = np.mean(base_average)
+
+    thisExp.addData('baselineResults', base)
+    ##################################
     thisExp.nextEntry()
     # the Routine "collectbaseline" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
@@ -947,7 +1026,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Run Routine "fixationpoint" ---
     fixationpoint.forceEnded = routineForceEnded = not continueRoutine
-    while continueRoutine and routineTimer.getTime() < 10.0:
+    while continueRoutine and routineTimer.getTime() < 60.0:
         # get current time
         t = routineTimer.getTime()
         tThisFlip = win.getFutureFlipTime(clock=routineTimer)
@@ -978,7 +1057,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # if fixationpointt is stopping this frame...
         if fixationpointt.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > fixationpointt.tStartRefresh + 10.0-frameTolerance:
+            if tThisFlipGlobal > fixationpointt.tStartRefresh + 60.0-frameTolerance:
                 # keep track of stop time/frame for later
                 fixationpointt.tStop = t  # not accounting for scr refresh
                 fixationpointt.tStopRefresh = tThisFlipGlobal  # on global time
@@ -1034,7 +1113,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     elif fixationpoint.forceEnded:
         routineTimer.reset()
     else:
-        routineTimer.addTime(-10.000000)
+        routineTimer.addTime(-60.000000)
     thisExp.nextEntry()
     
     # --- Prepare to start Routine "instructions" ---
@@ -1176,6 +1255,168 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         thisExp.addData('key_resp_3.duration', key_resp_3.duration)
     thisExp.nextEntry()
     # the Routine "instructions" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
+    
+    # --- Prepare to start Routine "level1waldo" ---
+    # create an object to store info about Routine level1waldo
+    level1waldo = data.Routine(
+        name='level1waldo',
+        components=[image_5, key_resp_14],
+    )
+    level1waldo.status = NOT_STARTED
+    continueRoutine = True
+    # update component parameters for each repeat
+    # create starting attributes for key_resp_14
+    key_resp_14.keys = []
+    key_resp_14.rt = []
+    _key_resp_14_allKeys = []
+    # store start times for level1waldo
+    level1waldo.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+    level1waldo.tStart = globalClock.getTime(format='float')
+    level1waldo.status = STARTED
+    thisExp.addData('level1waldo.started', level1waldo.tStart)
+    level1waldo.maxDuration = None
+    # keep track of which components have finished
+    level1waldoComponents = level1waldo.components
+    for thisComponent in level1waldo.components:
+        thisComponent.tStart = None
+        thisComponent.tStop = None
+        thisComponent.tStartRefresh = None
+        thisComponent.tStopRefresh = None
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    # reset timers
+    t = 0
+    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+    frameN = -1
+    
+    # --- Run Routine "level1waldo" ---
+    level1waldo.forceEnded = routineForceEnded = not continueRoutine
+    while continueRoutine:
+        # get current time
+        t = routineTimer.getTime()
+        tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *image_5* updates
+        
+        # if image_5 is starting this frame...
+        if image_5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            image_5.frameNStart = frameN  # exact frame index
+            image_5.tStart = t  # local t and not account for scr refresh
+            image_5.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(image_5, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'image_5.started')
+            # update status
+            image_5.status = STARTED
+            image_5.setAutoDraw(True)
+        
+        # if image_5 is active this frame...
+        if image_5.status == STARTED:
+            # update params
+            pass
+        
+        # *key_resp_14* updates
+        waitOnFlip = False
+        
+        # if key_resp_14 is starting this frame...
+        if key_resp_14.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            key_resp_14.frameNStart = frameN  # exact frame index
+            key_resp_14.tStart = t  # local t and not account for scr refresh
+            key_resp_14.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(key_resp_14, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'key_resp_14.started')
+            # update status
+            key_resp_14.status = STARTED
+            # keyboard checking is just starting
+            waitOnFlip = True
+            win.callOnFlip(key_resp_14.clock.reset)  # t=0 on next screen flip
+            win.callOnFlip(key_resp_14.clearEvents, eventType='keyboard')  # clear events on next screen flip
+        if key_resp_14.status == STARTED and not waitOnFlip:
+            theseKeys = key_resp_14.getKeys(keyList=['y','n','left','right','space'], ignoreKeys=["escape"], waitRelease=False)
+            _key_resp_14_allKeys.extend(theseKeys)
+            if len(_key_resp_14_allKeys):
+                key_resp_14.keys = _key_resp_14_allKeys[-1].name  # just the last key pressed
+                key_resp_14.rt = _key_resp_14_allKeys[-1].rt
+                key_resp_14.duration = _key_resp_14_allKeys[-1].duration
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check for quit (typically the Esc key)
+        if defaultKeyboard.getKeys(keyList=["escape"]):
+            thisExp.status = FINISHED
+        if thisExp.status == FINISHED or endExpNow:
+            endExperiment(thisExp, win=win)
+            return
+        # pause experiment here if requested
+        if thisExp.status == PAUSED:
+            pauseExperiment(
+                thisExp=thisExp, 
+                win=win, 
+                timers=[routineTimer], 
+                playbackComponents=[]
+            )
+            # skip the frame we paused on
+            continue
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            level1waldo.forceEnded = routineForceEnded = True
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in level1waldo.components:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # --- Ending Routine "level1waldo" ---
+    for thisComponent in level1waldo.components:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # store stop times for level1waldo
+    level1waldo.tStop = globalClock.getTime(format='float')
+    level1waldo.tStopRefresh = tThisFlipGlobal
+    thisExp.addData('level1waldo.stopped', level1waldo.tStop)
+    # check responses
+    if key_resp_14.keys in ['', [], None]:  # No response was made
+        key_resp_14.keys = None
+    thisExp.addData('key_resp_14.keys',key_resp_14.keys)
+    if key_resp_14.keys != None:  # we had a response
+        thisExp.addData('key_resp_14.rt', key_resp_14.rt)
+        thisExp.addData('key_resp_14.duration', key_resp_14.duration)
+        
+    ##################################
+    level1_sums, level1_average = process_eeg_beta(period_time=6, total_time=30, cyton_board=cyton_board)
+    
+    nextlevel_threshold = 3
+    score = 0
+    
+    for i in level1_average:
+        if i > base:
+            score += 1
+    
+    if score >= threshold:
+        # we pass, so let's allow test level2
+        goToLevel2 = True
+    else:
+        # we fail, so let's skip test level2
+        goToLevel2 = False
+
+    thisExp.addData('Level1Score', score)
+    ##################################
+    
+    thisExp.nextEntry()
+    # the Routine "level1waldo" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
     # --- Prepare to start Routine "whatquadrantiswaldo" ---
@@ -1601,6 +1842,147 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # the Routine "beat1go2" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
+    # --- Prepare to start Routine "level2waldo" ---
+    # create an object to store info about Routine level2waldo
+    level2waldo = data.Routine(
+        name='level2waldo',
+        components=[image_6, key_resp_15],
+    )
+    level2waldo.status = NOT_STARTED
+    continueRoutine = True
+    # update component parameters for each repeat
+    # create starting attributes for key_resp_15
+    key_resp_15.keys = []
+    key_resp_15.rt = []
+    _key_resp_15_allKeys = []
+    # store start times for level2waldo
+    level2waldo.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+    level2waldo.tStart = globalClock.getTime(format='float')
+    level2waldo.status = STARTED
+    thisExp.addData('level2waldo.started', level2waldo.tStart)
+    level2waldo.maxDuration = None
+    # keep track of which components have finished
+    level2waldoComponents = level2waldo.components
+    for thisComponent in level2waldo.components:
+        thisComponent.tStart = None
+        thisComponent.tStop = None
+        thisComponent.tStartRefresh = None
+        thisComponent.tStopRefresh = None
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    # reset timers
+    t = 0
+    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+    frameN = -1
+    
+    # --- Run Routine "level2waldo" ---
+    level2waldo.forceEnded = routineForceEnded = not continueRoutine
+    while continueRoutine:
+        # get current time
+        t = routineTimer.getTime()
+        tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *image_6* updates
+        
+        # if image_6 is starting this frame...
+        if image_6.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            image_6.frameNStart = frameN  # exact frame index
+            image_6.tStart = t  # local t and not account for scr refresh
+            image_6.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(image_6, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'image_6.started')
+            # update status
+            image_6.status = STARTED
+            image_6.setAutoDraw(True)
+        
+        # if image_6 is active this frame...
+        if image_6.status == STARTED:
+            # update params
+            pass
+        
+        # *key_resp_15* updates
+        waitOnFlip = False
+        
+        # if key_resp_15 is starting this frame...
+        if key_resp_15.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            key_resp_15.frameNStart = frameN  # exact frame index
+            key_resp_15.tStart = t  # local t and not account for scr refresh
+            key_resp_15.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(key_resp_15, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'key_resp_15.started')
+            # update status
+            key_resp_15.status = STARTED
+            # keyboard checking is just starting
+            waitOnFlip = True
+            win.callOnFlip(key_resp_15.clock.reset)  # t=0 on next screen flip
+            win.callOnFlip(key_resp_15.clearEvents, eventType='keyboard')  # clear events on next screen flip
+        if key_resp_15.status == STARTED and not waitOnFlip:
+            theseKeys = key_resp_15.getKeys(keyList=['y','n','left','right','space'], ignoreKeys=["escape"], waitRelease=False)
+            _key_resp_15_allKeys.extend(theseKeys)
+            if len(_key_resp_15_allKeys):
+                key_resp_15.keys = _key_resp_15_allKeys[-1].name  # just the last key pressed
+                key_resp_15.rt = _key_resp_15_allKeys[-1].rt
+                key_resp_15.duration = _key_resp_15_allKeys[-1].duration
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check for quit (typically the Esc key)
+        if defaultKeyboard.getKeys(keyList=["escape"]):
+            thisExp.status = FINISHED
+        if thisExp.status == FINISHED or endExpNow:
+            endExperiment(thisExp, win=win)
+            return
+        # pause experiment here if requested
+        if thisExp.status == PAUSED:
+            pauseExperiment(
+                thisExp=thisExp, 
+                win=win, 
+                timers=[routineTimer], 
+                playbackComponents=[]
+            )
+            # skip the frame we paused on
+            continue
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            level2waldo.forceEnded = routineForceEnded = True
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in level2waldo.components:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # --- Ending Routine "level2waldo" ---
+    for thisComponent in level2waldo.components:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # store stop times for level2waldo
+    level2waldo.tStop = globalClock.getTime(format='float')
+    level2waldo.tStopRefresh = tThisFlipGlobal
+    thisExp.addData('level2waldo.stopped', level2waldo.tStop)
+    # check responses
+    if key_resp_15.keys in ['', [], None]:  # No response was made
+        key_resp_15.keys = None
+    thisExp.addData('key_resp_15.keys',key_resp_15.keys)
+    if key_resp_15.keys != None:  # we had a response
+        thisExp.addData('key_resp_15.rt', key_resp_15.rt)
+        thisExp.addData('key_resp_15.duration', key_resp_15.duration)
+    thisExp.nextEntry()
+    # the Routine "level2waldo" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
+    
     # --- Prepare to start Routine "whatquadrantiswaldo" ---
     # create an object to store info about Routine whatquadrantiswaldo
     whatquadrantiswaldo = data.Routine(
@@ -2022,6 +2404,147 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         thisExp.addData('key_resp_13.duration', key_resp_13.duration)
     thisExp.nextEntry()
     # the Routine "beat2go3" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
+    
+    # --- Prepare to start Routine "level3waldo" ---
+    # create an object to store info about Routine level3waldo
+    level3waldo = data.Routine(
+        name='level3waldo',
+        components=[image_7, key_resp_16],
+    )
+    level3waldo.status = NOT_STARTED
+    continueRoutine = True
+    # update component parameters for each repeat
+    # create starting attributes for key_resp_16
+    key_resp_16.keys = []
+    key_resp_16.rt = []
+    _key_resp_16_allKeys = []
+    # store start times for level3waldo
+    level3waldo.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+    level3waldo.tStart = globalClock.getTime(format='float')
+    level3waldo.status = STARTED
+    thisExp.addData('level3waldo.started', level3waldo.tStart)
+    level3waldo.maxDuration = None
+    # keep track of which components have finished
+    level3waldoComponents = level3waldo.components
+    for thisComponent in level3waldo.components:
+        thisComponent.tStart = None
+        thisComponent.tStop = None
+        thisComponent.tStartRefresh = None
+        thisComponent.tStopRefresh = None
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    # reset timers
+    t = 0
+    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+    frameN = -1
+    
+    # --- Run Routine "level3waldo" ---
+    level3waldo.forceEnded = routineForceEnded = not continueRoutine
+    while continueRoutine:
+        # get current time
+        t = routineTimer.getTime()
+        tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *image_7* updates
+        
+        # if image_7 is starting this frame...
+        if image_7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            image_7.frameNStart = frameN  # exact frame index
+            image_7.tStart = t  # local t and not account for scr refresh
+            image_7.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(image_7, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'image_7.started')
+            # update status
+            image_7.status = STARTED
+            image_7.setAutoDraw(True)
+        
+        # if image_7 is active this frame...
+        if image_7.status == STARTED:
+            # update params
+            pass
+        
+        # *key_resp_16* updates
+        waitOnFlip = False
+        
+        # if key_resp_16 is starting this frame...
+        if key_resp_16.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            key_resp_16.frameNStart = frameN  # exact frame index
+            key_resp_16.tStart = t  # local t and not account for scr refresh
+            key_resp_16.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(key_resp_16, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'key_resp_16.started')
+            # update status
+            key_resp_16.status = STARTED
+            # keyboard checking is just starting
+            waitOnFlip = True
+            win.callOnFlip(key_resp_16.clock.reset)  # t=0 on next screen flip
+            win.callOnFlip(key_resp_16.clearEvents, eventType='keyboard')  # clear events on next screen flip
+        if key_resp_16.status == STARTED and not waitOnFlip:
+            theseKeys = key_resp_16.getKeys(keyList=['y','n','left','right','space'], ignoreKeys=["escape"], waitRelease=False)
+            _key_resp_16_allKeys.extend(theseKeys)
+            if len(_key_resp_16_allKeys):
+                key_resp_16.keys = _key_resp_16_allKeys[-1].name  # just the last key pressed
+                key_resp_16.rt = _key_resp_16_allKeys[-1].rt
+                key_resp_16.duration = _key_resp_16_allKeys[-1].duration
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check for quit (typically the Esc key)
+        if defaultKeyboard.getKeys(keyList=["escape"]):
+            thisExp.status = FINISHED
+        if thisExp.status == FINISHED or endExpNow:
+            endExperiment(thisExp, win=win)
+            return
+        # pause experiment here if requested
+        if thisExp.status == PAUSED:
+            pauseExperiment(
+                thisExp=thisExp, 
+                win=win, 
+                timers=[routineTimer], 
+                playbackComponents=[]
+            )
+            # skip the frame we paused on
+            continue
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            level3waldo.forceEnded = routineForceEnded = True
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in level3waldo.components:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # --- Ending Routine "level3waldo" ---
+    for thisComponent in level3waldo.components:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # store stop times for level3waldo
+    level3waldo.tStop = globalClock.getTime(format='float')
+    level3waldo.tStopRefresh = tThisFlipGlobal
+    thisExp.addData('level3waldo.stopped', level3waldo.tStop)
+    # check responses
+    if key_resp_16.keys in ['', [], None]:  # No response was made
+        key_resp_16.keys = None
+    thisExp.addData('key_resp_16.keys',key_resp_16.keys)
+    if key_resp_16.keys != None:  # we had a response
+        thisExp.addData('key_resp_16.rt', key_resp_16.rt)
+        thisExp.addData('key_resp_16.duration', key_resp_16.duration)
+    thisExp.nextEntry()
+    # the Routine "level3waldo" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
     # --- Prepare to start Routine "whatquadrantiswaldo" ---
