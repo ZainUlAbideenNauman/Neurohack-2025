@@ -33,6 +33,20 @@ import sys  # to get file system encoding
 from psychopy.hardware import keyboard
 
 #########################
+
+import scipy
+import numpy as np
+import matplotlib.pyplot as plt
+import time
+import mne
+from scipy.signal import butter, lfilter
+
+import brainflow
+from brainflow.board_shim import BoardShim, BrainFlowInputParams, BrainFlowError, BoardIds
+
+
+# Import the custom module.
+from brainflow_stream import BrainFlowBoardSetup
 board_id = BoardIds.CYTON_BOARD.value # Set the board_id to match the Cyton board
 
  # Lets quickly take a look at the specifications of the Cyton board
@@ -1401,15 +1415,16 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     nextlevel_threshold = 3
     score = 0
     
+    
     for i in level1_average:
-        if i > base:
+        if np.abs(i) > np.abs(base):
             score += 1
     
+    print("score")
+    
     if score >= threshold:
-        # we pass, so let's allow test level2
         goToLevel2 = True
     else:
-        # we fail, so let's skip test level2
         goToLevel2 = False
 
     thisExp.addData('Level1Score', score)
