@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2024.2.4),
-    on Sun 16 Mar 00:02:15 2025
+    on March 16, 2025, at 11:24
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -125,7 +125,7 @@ def setupData(expInfo, dataDir=None):
     thisExp = data.ExperimentHandler(
         name=expName, version='',
         extraInfo=expInfo, runtimeInfo=None,
-        originPath='/Users/tiana/Documents/Neurohack-2025/psychopy/GameInterfacePsychopy_lastrun.py',
+        originPath='C:\\Users\\Cage Chen\\OneDrive\\桌面\\SURGE\\Neurohack-2025\\Neurohack-2025\\psychopy\\GameInterfacePsychopy_lastrun.py',
         savePickle=True, saveWideText=True,
         dataFileName=dataDir + os.sep + filename, sortColumns='time'
     )
@@ -292,6 +292,12 @@ def setupDevices(expInfo, thisExp, win):
         key_resp_7 = deviceManager.addDevice(
             deviceClass='keyboard',
             deviceName='key_resp_7',
+        )
+    if deviceManager.getDevice('key_resp_13') is None:
+        # initialise key_resp_13
+        key_resp_13 = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='key_resp_13',
         )
     if deviceManager.getDevice('key_resp_8') is None:
         # initialise key_resp_8
@@ -531,6 +537,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
         texRes=128.0, interpolate=True, depth=0.0)
+    key_resp_13 = keyboard.Keyboard(deviceName='key_resp_13')
     
     # --- Initialize components for Routine "whatquadrantiswaldo" ---
     whatquadrant = visual.ImageStim(
@@ -1879,11 +1886,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # create an object to store info about Routine beat2go3
     beat2go3 = data.Routine(
         name='beat2go3',
-        components=[image_4],
+        components=[image_4, key_resp_13],
     )
     beat2go3.status = NOT_STARTED
     continueRoutine = True
     # update component parameters for each repeat
+    # create starting attributes for key_resp_13
+    key_resp_13.keys = []
+    key_resp_13.rt = []
+    _key_resp_13_allKeys = []
     # store start times for beat2go3
     beat2go3.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
     beat2go3.tStart = globalClock.getTime(format='float')
@@ -1934,6 +1945,34 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # update params
             pass
         
+        # *key_resp_13* updates
+        waitOnFlip = False
+        
+        # if key_resp_13 is starting this frame...
+        if key_resp_13.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            key_resp_13.frameNStart = frameN  # exact frame index
+            key_resp_13.tStart = t  # local t and not account for scr refresh
+            key_resp_13.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(key_resp_13, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'key_resp_13.started')
+            # update status
+            key_resp_13.status = STARTED
+            # keyboard checking is just starting
+            waitOnFlip = True
+            win.callOnFlip(key_resp_13.clock.reset)  # t=0 on next screen flip
+            win.callOnFlip(key_resp_13.clearEvents, eventType='keyboard')  # clear events on next screen flip
+        if key_resp_13.status == STARTED and not waitOnFlip:
+            theseKeys = key_resp_13.getKeys(keyList=['y','n','left','right','space'], ignoreKeys=["escape"], waitRelease=False)
+            _key_resp_13_allKeys.extend(theseKeys)
+            if len(_key_resp_13_allKeys):
+                key_resp_13.keys = _key_resp_13_allKeys[-1].name  # just the last key pressed
+                key_resp_13.rt = _key_resp_13_allKeys[-1].rt
+                key_resp_13.duration = _key_resp_13_allKeys[-1].duration
+                # a response ends the routine
+                continueRoutine = False
+        
         # check for quit (typically the Esc key)
         if defaultKeyboard.getKeys(keyList=["escape"]):
             thisExp.status = FINISHED
@@ -1973,6 +2012,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     beat2go3.tStop = globalClock.getTime(format='float')
     beat2go3.tStopRefresh = tThisFlipGlobal
     thisExp.addData('beat2go3.stopped', beat2go3.tStop)
+    # check responses
+    if key_resp_13.keys in ['', [], None]:  # No response was made
+        key_resp_13.keys = None
+    thisExp.addData('key_resp_13.keys',key_resp_13.keys)
+    if key_resp_13.keys != None:  # we had a response
+        thisExp.addData('key_resp_13.rt', key_resp_13.rt)
+        thisExp.addData('key_resp_13.duration', key_resp_13.duration)
     thisExp.nextEntry()
     # the Routine "beat2go3" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
